@@ -6,8 +6,15 @@
 #include "Product.h"
 #include "Cart.h"
 #include "User.h"
+#include<string>
 
 using namespace std;
+
+const std::string GREEN = "\033[32m";
+const std::string RED = "\033[31m";
+const std::string BLUE = "\033[34m";
+const std::string RESET = "\033[0m";
+
 
 unordered_map<string, vector<Product*>> productCatalog = {
     {"Electronics", {
@@ -148,13 +155,13 @@ int main() {
             cout << "Goodbye!\n";
             return 0;
         } else {
-            cout << "Invalid choice. Please try again.\n";
+            cout<< RED << "Invalid choice. Please try again.\n"<<RESET;
         }
     }
 
     // Main menu after successful login
     while (true) {
-        cout << "\n===== Main Menu =====\n";
+        cout << "\n===== Main Menu =====\n"<<endl;
         cout << "1. Browse Products\n";
         cout << "2. View Cart\n";
         cout << "3. Place Order\n";
@@ -184,7 +191,7 @@ int main() {
                 cout << "Goodbye!\n";
                 return 0;
             default:
-                cout << "Invalid choice. Please try again.\n";
+                cout<< RED << "\nInvalid choice. Please try again.\n"<<RESET;
         }
     }
     return 0;
@@ -230,7 +237,7 @@ void browseProducts(Cart<Product>& cart) {
 
 // Function to view the cart
 void viewCart(const Cart<Product>& cart) {
-    cout << "\nYour Cart:\n";
+    cout << BLUE << "\nYour Cart:\n"<<RESET;
     cart.viewCart();
 }
 
@@ -274,7 +281,7 @@ void viewOrders(const string& userid) {
         bool hasOrders = false;
         bool displayOrder = false;
 
-        cout << "\nYour Orders:\n";
+        cout << BLUE << "\nYour Orders:\n"<<RESET;
         while (getline(file, line)) {
             if (line.find("User: " + userid) != string::npos) {
                 hasOrders = true;

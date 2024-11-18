@@ -28,20 +28,20 @@ string UserManager::hashPassword(const string& password) {
 bool UserManager::login(const string& userid, const string& password) {
     auto it = users.find(userid);
     if (it != users.end() && it->second == hashPassword(password)) {
-        cout << "\033[32mLogin successful!\033[0m\n"; // Green text
+        cout << "\033[32m\nLogin successful!\033[0m\n"; // Green text
         return true;
     }
-    cout << "\033[31mInvalid username or password.\033[0m\n"; // Red text
+    cout << "\033[31m\nInvalid username or password.\033[0m\n"; // Red text
     return false;
 }
 
 bool UserManager::signUp(const string& userid, const string& password) {
     if (users.find(userid) != users.end()) {
-        cout << "\033[31mUser already exists. Try logging in.\033[0m\n"; // Red text
+        cout << "\033[31m\nUser already exists. Try logging in.\033[0m\n"; // Red text
         return false;
     }
     users[userid] = hashPassword(password);
-    cout << "\033[32mSign-up successful!\033[0m\n"; // Green text
+    cout << "\033[32m\nSign-up successful!\033[0m\n"; // Green text
     return true;
 }
 
@@ -53,6 +53,6 @@ void UserManager::saveUsersToFile(const string& filename) {
         }
         file.close();
     } else {
-        cout << "\033[31mError saving user data.\033[0m\n"; // Red text
+        cout << "\033[31m\nError saving user data.\033[0m\n"; // Red text
     }
 }
