@@ -11,12 +11,13 @@
 
 using namespace std;
 
+//Colors
 const std::string GREEN = "\033[32m";
 const std::string RED = "\033[31m";
 const std::string BLUE = "\033[34m";
+const std::string REDDISH_PINK = "\033[38;2;255;102;153m";
+const std::string REDDISH_ORANGE = "\033[38;2;255;69;0m";
 const std::string RESET = "\033[0m";
-
-
 
 
 unordered_map<string, vector<string>> userPurchaseHistory;
@@ -39,7 +40,7 @@ int main() {
     string currentUserId;
     int choice;
 
-    cout << "\n*** Welcome to the E-Commerce Platform! ***\n";
+    cout << REDDISH_ORANGE << "\n*** Welcome to the E-Commerce Platform! ***\n" << RESET;
 
     while (true) {
         cout << "\n1. Sign Up\n2. Login\n3. Quit\n";
@@ -68,10 +69,10 @@ int main() {
                 break; // Proceed to main menu
             }
         } else if (choice == 3) {
-            cout << "Goodbye!\n";
+            cout << REDDISH_PINK << "\nEagerly Waiting to Welcome You In On Our Platform!\n" << RESET << endl;
             return 0;
         } else {
-            cout<< RED << "Invalid choice. Please try again.\n"<<RESET;
+            cout<< RED << "\nInvalid choice. Please try again.\n"<<RESET;
         }
     }
 
@@ -104,7 +105,7 @@ int main() {
                 getProductRecommendations(currentUserId);
                 break;
             case 6:
-                cout << "Goodbye!\n";
+                cout << REDDISH_PINK << "\nWish to Welcome You Again On Our Platform!\n" << RESET << endl;
                 return 0;
             default:
                 cout<< RED << "\nInvalid choice. Please try again.\n"<<RESET;
@@ -113,7 +114,6 @@ int main() {
     return 0;
 }
 
-// Function to browse products
 void browseProducts(Cart<Product>& cart) {
     cout << "\nSelect a category:\n";
     for (const auto& category : productCatalog) {
@@ -137,7 +137,7 @@ void browseProducts(Cart<Product>& cart) {
         }
 
         int choice;
-        cout << "Enter product number to add to cart or 0 to return: ";
+        cout << BLUE << "\nEnter product number to add to cart or 0 to return: "<< RESET;
         cin >> choice;
 
         if (choice > 0 && choice <= products.size()) {
@@ -151,13 +151,11 @@ void browseProducts(Cart<Product>& cart) {
     }
 }
 
-// Function to view the cart
 void viewCart(const Cart<Product>& cart) {
     cout << BLUE << "\nYour Cart:\n"<<RESET;
     cart.viewCart();
 }
 
-// Function to place an order
 void placeOrder(const Cart<Product>& cart, const string& userid) {
     if (cart.isEmpty()) {
         cout << "\033[31mYour cart is empty.\033[0m\n"; // Red text
@@ -168,7 +166,7 @@ void placeOrder(const Cart<Product>& cart, const string& userid) {
     cart.viewCart();
 
     char confirm;
-    cout << "Do you want to place this order? (y/n): ";
+    cout << "\nDo you want to place this order? (y/n): ";
     cin >> confirm;
 
     if (confirm == 'y' || confirm == 'Y') {
@@ -189,7 +187,6 @@ void placeOrder(const Cart<Product>& cart, const string& userid) {
     }
 }
 
-// Function to view orders
 void viewOrders(const string& userid) {
     ifstream file("orders.txt");
     if (file.is_open()) {
@@ -221,12 +218,11 @@ void viewOrders(const string& userid) {
     }
 }
 
-
 void getProductRecommendations(const string& userid) {
     cout << "\nPersonalized Recommendations:\n";
 
     if (userPurchaseHistory.find(userid) == userPurchaseHistory.end() || userPurchaseHistory[userid].empty()) {
-        cout << "No purchase history found. Here are some popular products:\n";
+        cout << "Here are some popular products:\n";
         for (const auto& category : productCatalog) {
             if (!category.second.empty()) {
                 cout << "- " << category.second[0]->getName() << " from " << category.first << " category.\n";
@@ -263,7 +259,6 @@ void getProductRecommendations(const string& userid) {
 }
 
 }
-
 
 void loadOrderHistory(const string& filename) {
     ifstream file(filename);

@@ -6,22 +6,21 @@
 #include <iostream>
 using namespace std;
 
-// Add an item to the cart
 template <typename T>
 void Cart<T>::addItem(T* item) {
-    items.emplace_back(unique_ptr<T>(item)); // Wrap raw pointer in unique_ptr
+    items.emplace_back(unique_ptr<T>(item)); 
 }
 
 // Display all items in the cart
 template <typename T>
 void Cart<T>::viewCart() const {
     if (items.empty()) {
-        cout << "\033[31mYour cart is empty.\033[0m\n"; // Red text
+        cout << "\033[31mYour cart is empty.\033[0m\n"; 
         return;
     }
 
     for (const auto& item : items) { // Access each item using unique_ptr
-        item->display();            // Safely call display() on each item
+        item->display();            // Call display() on each item
     }
 }
 
